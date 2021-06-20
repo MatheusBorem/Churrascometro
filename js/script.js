@@ -43,7 +43,7 @@ function calculocarne(){
         qtdcarnem = 0.500
         qtdcarnec = 0.300
 
-        let qtdcervejahm = 2
+        qtdcervejahm = 2
 
         qtdrefrihm = 2
         qtdrefric = 1
@@ -53,7 +53,7 @@ function calculocarne(){
         qtdcarnem = 0.300
         qtdcarnec = 0.200
 
-        let qtdcervejahm = 1.65
+        qtdcervejahm = 1.65
 
         qtdrefrihm = 1.5
         qtdrefric = 0.750
@@ -69,26 +69,30 @@ function calculocarne(){
         nc = 0
     }
 
+    if ((nh == null || nh == "") && (nm == null || nm == "")){
+        alert("Insira Valores Válidos")
+    }
+    else{
     let totalh = nh * qtdcarneh //total de carnes para homens
     let totalm = nm * qtdcarnem //total de carnes para mulheres
     let totalc = nc * qtdcarnec //total de carnes para crianças
 
-    let totalg = totalh + totalm + totalc //total de carnes geral
+    let totalg = Math.ceil(totalh + totalm + totalc) //total de carnes geral
 
-    let totalcervejahm = (parseInt(nh) + parseInt(nm)) * qtdcervejahm //total de bebida alcólica (parseInt converte string em número)
+    let totalcervejahm = Math.ceil(((parseInt(nh) + parseInt(nm)) * qtdcervejahm) / 0.35) //total de bebida alcólica (parseInt converte string em número)
     let totalrefrihm = (parseInt(nh) + parseInt(nm)) * qtdrefrihm //total de refrigerante homem e mulher (parseInt converte string em número)
     let totalrefric = parseInt(nc) * qtdrefric //total de refrigerante criança (parseInt converte string em número)
-    let totalrefrig = totalrefrihm + totalrefric //Total refrigerante geral
+    let totalrefrig = Math.ceil((totalrefrihm + totalrefric) / 2.0) //Total refrigerante geral
 
-    let totalcarvao = totalg * qtdcarvao //total de carvão
+    let totalcarvao = Math.ceil(totalg * qtdcarvao) //total de carvão
 
     let totalpao = parseInt(nh) + parseInt(nm) + parseInt(nc) //total de pão de alho
 
-    resultado1.innerHTML += "Você precisará de " + totalg.toFixed(2) + "Kg de carne." //span do html recebe esses valores
-    resultado2.innerHTML += "Você precisará de " + totalrefrig + "l de refrigerante."
-    resultado3.innerHTML += "Você precisará de " + totalcarvao.toFixed(2) + "Kg de carvão."
+    resultado1.innerHTML += "Você precisará de " + totalg + " Kg de carne." //span do html recebe esses valores
+    resultado2.innerHTML += "Você precisará de " + totalrefrig + " Garrafas de 2 litros de refrigerante."
+    resultado3.innerHTML += "Você precisará de " + totalcarvao + " Kg de carvão."
     resultado4.innerHTML += "Você precisará de " + totalpao + " pães de alho."
-    resultado5.innerHTML += "Você precisará de " + totalcervejahm.toFixed(2) + "l de cerveja."
+    resultado5.innerHTML += "Você precisará de " + totalcervejahm + " latas de cerveja."
 
     let alertas = document.querySelector(".alerta")
     alertas.style.opacity = "1" //utilizei opacity para o efeito de aparição ficar suave com transition
@@ -102,6 +106,7 @@ function calculocarne(){
     input2.value = "" //zerar o input depois do click
     input3.value = "" //zerar o input depois do click
     input4.value = "" //zerar o input depois do click
+    }
 }
 
 let botao2 = document.querySelector(".bot2")
